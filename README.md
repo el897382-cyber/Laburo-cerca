@@ -167,6 +167,15 @@ function limpiar(){
 }
 
 mostrar();
-</script>
+</script> 
+<section style="max-width:800px;margin:20px auto;padding:24px;background:#fff;border-radius:16px;text-align:center;font-family:Arial,sans-serif;box-shadow:0 2px 10px #ddd">
+  <h2>⭐ Destacá tu oferta</h2>
+  <p>Conseguí más visibilidad para tu publicación en Laburo Cerca.</p>
+  <h3>$3.000 ARS · 7 días</h3>
+  <p>La publicación destacada se activa después de verificar el pago.</p>
+  <a href="https://mpago.la/21zd4XH" target="_blank" rel="noopener noreferrer" style="display:inline-block;padding:14px 22px;background:#009ee3;color:white;text-decoration:none;border-radius:10px;font-weight:bold">
+    Pagar con Mercado Pago
+  </a>
+</section>
 </body>
 </html>
