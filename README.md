@@ -215,7 +215,11 @@ document.getElementById("formOferta").addEventListener("submit", async function(
   estado.textContent = "Enviando oferta...";
 
   try {
-    await guardarOferta({
+    const guardar = window.guardarOferta;
+if (typeof guardar !== "function") {
+  throw new Error("No se encontró la función guardarOferta. Revisá el bloque script de Supabase.");
+}
+await guardar({
       puesto: datos.get("puesto").trim(),
       localidad: datos.get("localidad").trim(),
       descripcion: datos.get("descripcion").trim(),
