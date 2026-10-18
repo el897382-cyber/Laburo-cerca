@@ -240,7 +240,7 @@ document.getElementById("formOferta").addEventListener("submit", async function(
 
 <script>
 const SUPABASE_URL = "https://qjtdxoupxcbbolwjugco.supabase.co";
-const SUPABASE_KEY = "sb_publishable_gF3nfe2FZvsjIsZN32BK1w_IkOX26eV"
+const SUPABASE_KEY = "sb_publishable_gF3nfe2FZvsjIsZN32BK1w_IkOX26eV";
 
 async function guardarOferta(oferta) {
   const respuesta = await fetch(
@@ -264,12 +264,11 @@ async function guardarOferta(oferta) {
   );
 
   if (!respuesta.ok) {
-    
-
-if (!respuesta.ok) {
-  const detalle = await respuesta.text();
-  throw new Error("Error " + respuesta.status + ": " + detalle);
-}
+    const detalle = await respuesta.text();
+    throw new Error(
+      "Error " + respuesta.status + ": " + detalle
+    );
+  }
 
   return await respuesta.json();
 }
