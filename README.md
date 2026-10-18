@@ -224,9 +224,13 @@ document.getElementById("formOferta").addEventListener("submit", async function(
 
     estado.textContent = "¡Oferta enviada! Quedó pendiente de revisión.";
     formulario.reset();
-  } catch (error) {
-    
+  
+
+} catch (error) {
   estado.textContent = error.message || "No se pudo enviar.";
+  console.error(error);
+}
+});
 </script>
 
 
