@@ -264,8 +264,12 @@ async function guardarOferta(oferta) {
   );
 
   if (!respuesta.ok) {
-    throw new Error("No se pudo guardar la oferta.");
-  }
+    
+
+if (!respuesta.ok) {
+  const detalle = await respuesta.text();
+  throw new Error("Error " + respuesta.status + ": " + detalle);
+}
 
   return await respuesta.json();
 }
