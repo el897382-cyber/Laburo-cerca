@@ -254,7 +254,7 @@ async function guardarOferta(oferta) {
       headers: {
         "Content-Type": "application/json",
         "apikey": SUPABASE_KEY,
-        "Prefer": "return=representation"
+        "Prefer": "return=minimal"
       },
       body: JSON.stringify({
         puesto: oferta.puesto,
@@ -273,7 +273,7 @@ async function guardarOferta(oferta) {
     );
   }
 
-  return await respuesta.json();
+ return true;
 }
 </script>
 
