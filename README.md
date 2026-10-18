@@ -193,5 +193,39 @@ mostrar();
   <p><strong>⭐ Destacá tu oferta por $10.000 durante 7 días.</strong></p>
   <p>El envío de la oferta no confirma el pago. La publicación destacada se coordina después de verificarlo.</p>
 </section>
+
+<script>
+const SUPABASE_URL = "https://qjtdxoupxcbbolwjugco.supabase.co";
+const SUPABASE_KEY = "sb_publishable_gF3nfe2FZvsjIsZN32BK1w_IkOX26eV"
+
+async function guardarOferta(oferta) {
+  const respuesta = await fetch(
+    `${SUPABASE_URL}/rest/v1/ofertas`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": SUPABASE_KEY,
+        "Authorization": `Bearer ${SUPABASE_KEY}`,
+        "Prefer": "return=representation"
+      },
+      body: JSON.stringify({
+        puesto: oferta.puesto,
+        localidad: oferta.localidad,
+        descripcion: oferta.descripcion,
+        contacto: oferta.contacto,
+        estado: "pendiente"
+      })
+    }
+  );
+
+  if (!respuesta.ok) {
+    throw new Error("No se pudo guardar la oferta.");
+  }
+
+  return await respuesta.json();
+}
+</script>
+
  </body>
 </html>
