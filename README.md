@@ -182,13 +182,55 @@ mostrar();
   <h2>📲 Publicá tu oferta en Laburo Cerca</h2>
   <p>¿Buscás empleados? Enviá los datos de tu oferta por WhatsApp.</p>
 
-  <form onsubmit="event.preventDefault(); const d=new FormData(this); const mensaje='Hola, quiero publicar una oferta en Laburo Cerca.%0A%0APuesto: '+encodeURIComponent(d.get('puesto'))+'%0ALocalidad: '+encodeURIComponent(d.get('localidad'))+'%0ADescripción: '+encodeURIComponent(d.get('descripcion'))+'%0AContacto del empleador: '+encodeURIComponent(d.get('contacto')); window.open('https://wa.me/5491123929491?text='+mensaje,'_blank');">
-    <input name="puesto" placeholder="Puesto de trabajo" required style="width:90%;padding:12px;margin:6px;"><br>
-    <input name="localidad" placeholder="Localidad" required style="width:90%;padding:12px;margin:6px;"><br>
-    <textarea name="descripcion" placeholder="Descripción de la oferta" required style="width:90%;padding:12px;margin:6px;"></textarea><br>
-    <input name="contacto" placeholder="Teléfono de contacto del empleador" required style="width:90%;padding:12px;margin:6px;"><br>
-    <button type="submit" style="padding:12px 20px;background:#16a34a;color:white;border:0;border-radius:8px;font-weight:bold;">Enviar oferta por WhatsApp</button>
-  </form>
+  
+<form id="formOferta">
+  <input name="puesto" placeholder="Puesto de trabajo" required
+    style="width:90%;padding:12px;margin:6px;"><br>
+
+  <input name="localidad" placeholder="Localidad" required
+    style="width:90%;padding:12px;margin:6px;"><br>
+
+  <textarea name="descripcion" placeholder="Descripción de la oferta" required
+    style="width:90%;padding:12px;margin:6px;"></textarea><br>
+
+  <input name="contacto" placeholder="Teléfono de contacto del empleador" required
+    style="width:90%;padding:12px;margin:6px;"><br>
+
+  <button type="submit"
+    style="padding:12px 20px;background:#16a34a;color:white;border:0;border-radius:8px;font-weight:bold;">
+    Enviar oferta
+  </button>
+
+  <p id="estadoOferta" role="status"></p>
+</form>
+
+<script>
+document.getElementById("formOferta").addEventListener("submit", async function(event) {
+  event.preventDefault();
+
+  const formulario = this;
+  const estado = document.getElementById("estadoOferta");
+  const datos = new FormData(formulario);
+
+  estado.textContent = "Enviando oferta...";
+
+  try {
+    await guardarOferta({
+      puesto: datos.get("puesto").trim(),
+      localidad: datos.get("localidad").trim(),
+      descripcion: datos.get("descripcion").trim(),
+      contacto: datos.get("contacto").trim()
+    });
+
+    estado.textContent = "¡Oferta enviada! Quedó pendiente de revisión.";
+    formulario.reset();
+  } catch (error) {
+    estado.textContent = "No se pudo enviar. Revisá la conexión e intentá nuevamente.";
+    console.error(error);
+  }
+});
+</script>
+
 
   <p><strong>⭐ Destacá tu oferta por $10.000 durante 7 días.</strong></p>
   <p>El envío de la oferta no confirma el pago. La publicación destacada se coordina después de verificarlo.</p>
