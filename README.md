@@ -225,10 +225,8 @@ document.getElementById("formOferta").addEventListener("submit", async function(
     estado.textContent = "¡Oferta enviada! Quedó pendiente de revisión.";
     formulario.reset();
   } catch (error) {
-    estado.textContent = "No se pudo enviar. Revisá la conexión e intentá nuevamente.";
-    console.error(error);
-  }
-});
+    
+  estado.textContent = error.message || "No se pudo enviar.";
 </script>
 
 
