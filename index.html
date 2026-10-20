@@ -151,26 +151,42 @@ function mostrar(){
  });
 }
 
-document.getElementById("formulario").addEventListener("submit",function(e){
- e.preventDefault();
- const nueva={
-  puesto:document.getElementById("puesto").value.trim(),
-  rubro:document.getElementById("rubro").value,
-  zona:document.getElementById("zona").value.trim(),
-  descripcion:document.getElementById("descripcion").value.trim(),
-  telefono:document.getElementById("telefono").value.trim()
- };
- if(!nueva.puesto||!nueva.zona||!nueva.descripcion||!nueva.telefono){
-  alert("Completá todos los campos.");
-  return;
- }
- ofertas.unshift(nueva);
- guardar();
- this.reset();
- mostrar();
- alert("¡Oferta agregada en este navegador!");
- document.getElementById("lista").scrollIntoView({behavior:"smooth"});
+
+document.getElementById("formulario").addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const nueva = {
+    puesto: document.getElementById("puesto").value.trim(),
+    localidad: document.getElementById("zona").value.trim(),
+    descripcion: document.getElementById("descripcion").value.trim(),
+    contacto: document.getElementById("telefono").value.trim(),
+    estado: "pendiente"
+  };
+
+  if (!nueva.puesto || !nueva.localidad ||
+      !nueva.descripcion || !nueva.contacto) {
+    alert("Completá todos los campos.");
+    return;
+  }
+
+  const { data, error } = await supabaseClient
+    .from("ofertas")
+    .insert([nueva])
+    .select();
+
+  if (error) {
+    console.error("Error al publicar:", error);
+    alert("No se pudo publicar la oferta: " + error.message);
+    return;
+  }
+
+  this.reset();
+  alert("¡Oferta enviada! Está pendiente de aprobación.");
+  document.getElementById("lista").scrollIntoView({
+    behavior: "smooth"
+  });
 });
+  
 
 function limpiar(){
  document.getElementById("buscar").value="";
