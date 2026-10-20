@@ -151,7 +151,7 @@ function mostrar(){
  });
 }
 
-<script>
+
 document.getElementById("formulario").addEventListener("submit", async function(e) {
   e.preventDefault();
 alert("¡El formulario está funcionando!");
@@ -186,18 +186,11 @@ alert("¡El formulario está funcionando!");
     behavior: "smooth"
   });
 });
-   </script>
-  <script 
-src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-function limpiar(){
- document.getElementById("buscar").value="";
- document.getElementById("localidad").value="";
- document.getElementById("filtro").value="";
- mostrar();
-}
 
-mostrar();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
 const SUPABASE_URL = "https://qjtdxoupxcbbolwjugco.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_gF3nfe2FZvsjIsZN32BK1w_IkOX26eV";
@@ -206,10 +199,20 @@ const supabaseClient = window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_ANON_KEY
 );
+
+function limpiar(){
+  document.getElementById("buscar").value="";
+  document.getElementById("localidad").value="";
+  document.getElementById("filtro").value="";
+  mostrar();
+}
+
+mostrar();
 </script>
 
 </body>
 </html>
+  
 
 
 
