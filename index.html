@@ -181,5 +181,18 @@ function limpiar(){
 
 mostrar();
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = "https://qjtdxoupxcbbolwjugco.supabase.co/rest/v1/;
+const SUPABASE_ANON_KEY = "sb_publishable_gF3nfe2FZvsjIsZN32BK1w_IkOX26eV";
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
+</script>
+
 </body>
 </html>
