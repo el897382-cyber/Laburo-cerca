@@ -169,6 +169,10 @@ alert("¡El formulario está funcionando!");
     return;
   }
 
+  
+try {
+  alert("Conectando con Supabase...");
+
   const { data, error } = await supabaseClient
     .from("ofertas")
     .insert([nueva])
@@ -176,14 +180,24 @@ alert("¡El formulario está funcionando!");
 
   if (error) {
     console.error("Error al publicar:", error);
-    alert("No se pudo publicar la oferta: " + error.message);
+    alert("Error de Supabase: " + error.message);
     return;
   }
 
+  console.log("Oferta guardada:", data);
+
   this.reset();
   alert("¡Oferta enviada! Está pendiente de aprobación.");
+
   document.getElementById("lista").scrollIntoView({
     behavior: "smooth"
+  });
+
+} catch (err) {
+  console.error("Error inesperado:", err);
+  alert("Error al guardar: " + err.message);
+}
+
   });
 });
 
