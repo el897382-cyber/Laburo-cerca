@@ -242,6 +242,7 @@ await guardar({
   <p>El envío de la oferta no confirma el pago. La publicación destacada se coordina después de verificarlo.</p>
 </section>
 
+
 <script>
 const SUPABASE_URL = "https://qjtdxoupxcbbolwjugco.supabase.co";
 const SUPABASE_KEY = "sb_publishable_gF3nfe2FZvsjIsZN32BK1w_IkOX26eV";
@@ -254,9 +255,11 @@ async function guardarOferta(oferta) {
       headers: {
         "Content-Type": "application/json",
         "apikey": SUPABASE_KEY,
+        "Authorization": `Bearer ${SUPABASE_KEY}`,
         "Prefer": "return=minimal"
       },
       body: JSON.stringify({
+        id: crypto.randomUUID(),
         puesto: oferta.puesto,
         localidad: oferta.localidad,
         descripcion: oferta.descripcion,
@@ -273,9 +276,10 @@ async function guardarOferta(oferta) {
     );
   }
 
- return true;
+  return true;
 }
 </script>
+
 
  </body>
 </html>
