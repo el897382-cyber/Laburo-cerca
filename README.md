@@ -205,6 +205,41 @@ mostrar();
 </form>
 
 <script>
+const formOferta = document.getElementById("formOferta");
+const estadoOferta = document.getElementById("estadoOferta");
+
+formOferta.addEventListener("submit", async function(event) {
+  event.preventDefault();
+
+  const boton = formOferta.querySelector('button[type="submit"]');
+  boton.disabled = true;
+  estadoOferta.textContent = "Enviando oferta...";
+
+  const datos = new FormData(formOferta);
+
+  const oferta = {
+    puesto: datos.get("puesto").trim(),
+    localidad: datos.get("localidad").trim(),
+    descripcion: datos.get("descripcion").trim(),
+    contacto: datos.get("contacto").trim()
+  };
+
+  try {
+    await guardarOferta(oferta);
+    estadoOferta.textContent =
+      "¡Oferta enviada correctamente! Quedará pendiente de aprobación.";
+    formOferta.reset();
+  } catch (error) {
+    console.error("Error al publicar:", error);
+    estadoOferta.textContent =
+      "No se pudo publicar: " + error.message;
+  } finally {
+    boton.disabled = false;
+  }
+});
+</script>
+
+<script>
 document.getElementById("formOferta").addEventListener("submit", async function(event) {
   event.preventDefault();
 
