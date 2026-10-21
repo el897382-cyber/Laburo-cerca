@@ -205,7 +205,6 @@ mostrar();
 </form>
 
 <script>
-const formOferta = document.getElementById("formOferta");
 const estadoOferta = document.getElementById("estadoOferta");
 
 formOferta.addEventListener("submit", async function(event) {
