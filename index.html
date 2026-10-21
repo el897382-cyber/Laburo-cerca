@@ -249,7 +249,6 @@ formulario.addEventListener("submit", async function(event) {
   if (!formulario.reportValidity()) return;
 
   const oferta = {
-    id: crypto.randomUUID(),
     puesto: document.getElementById("puesto").value.trim(),
     localidad: document.getElementById("zona").value.trim(),
     descripcion: document.getElementById("descripcion").value.trim(),
