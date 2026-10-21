@@ -184,13 +184,43 @@ const ejemplos = [
   }
 ];
 
+
+let ofertasReales = [];
+
+async function cargarOfertas() {
+  const lista = document.getElementById("lista");
+  lista.textContent = "Cargando ofertas...";
+
+  const { data, error } = await supabaseClient
+    .from("ofertas")
+    .select("id, puesto, localidad, descripcion, contacto, estado, creada_en")
+    .eq("estado", "aprobada")
+    .order("creada_en", { ascending: false });
+
+  if (error) {
+    console.error("Error al cargar ofertas:", error);
+    lista.textContent = "No se pudieron cargar las ofertas. Intentá recargar.";
+    return;
+  }
+
+  ofertasReales = (data || []).map(o => ({
+    puesto: o.puesto,
+    rubro: "Trabajo",
+    zona: o.localidad,
+    descripcion: o.descripcion,
+    telefono: o.contacto
+  }));
+
+  cargarOfertas();
+}
+
 function mostrar() {
   const texto = document.getElementById("buscar").value.toLowerCase().trim();
   const zona = document.getElementById("localidadBuscar").value.toLowerCase().trim();
   const rubro = document.getElementById("filtro").value;
   const lista = document.getElementById("lista");
 
-  const resultados = ejemplos.filter(t =>
+  const resultados = ofertasReales.filter(t =>
     (t.puesto + " " + t.descripcion + " " + t.rubro)
       .toLowerCase().includes(texto) &&
     t.zona.toLowerCase().includes(zona) &&
@@ -200,7 +230,7 @@ function mostrar() {
   lista.replaceChildren();
 
   if (!resultados.length) {
-    lista.textContent = "No encontramos ofertas con esos filtros.";
+    lista.textContent = "Todavía no hay ofertas publicadas con esos filtros.";
     return;
   }
 
@@ -221,14 +251,14 @@ function mostrar() {
     const descripcion = document.createElement("p");
     descripcion.textContent = t.descripcion;
 
-    const nota = document.createElement("p");
-    nota.className = "mensaje";
-    nota.textContent = "Oferta de ejemplo: todavía no tiene contacto real.";
+    const contacto = document.createElement("p");
+    contacto.textContent = "Contacto: " + t.telefono;
 
-    tarjeta.append(titulo, etiqueta, lugar, descripcion, nota);
+    tarjeta.append(titulo, etiqueta, lugar, descripcion, contacto);
     lista.appendChild(tarjeta);
   });
-}
+  }
+  
 
 function limpiar() {
   document.getElementById("buscar").value = "";
@@ -267,7 +297,7 @@ formulario.addEventListener("submit", async function(event) {
     if (error) throw error;
 
     estado.textContent =
-      "¡Oferta enviada correctamente! Quedó pendiente de aprobación.";
+      "¡Oferta publicada correctamente! Ya puede aparecer en Laburo Cerca.";
 
     formulario.reset();
 
