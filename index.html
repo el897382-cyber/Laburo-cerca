@@ -197,7 +197,7 @@ async function cargarOfertas() {
   const { data, error } = await supabaseClient
     .from("ofertas")
     .select("id, puesto, localidad, descripcion, contacto, estado, creada_en")
-    .eq("estado", "pendiente")
+    .eq("estado", "aprobada")
     .order("creada_en", { ascending: false });
 
   if (error) {
