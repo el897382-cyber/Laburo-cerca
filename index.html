@@ -194,6 +194,12 @@ async function cargarOfertas() {
   const lista = document.getElementById("lista");
   lista.textContent = "Conectando con Supabase...";
 
+let ofertasReales = [];
+
+async function cargarOfertas() {
+  const lista = document.getElementById("lista");
+  lista.textContent = "Conectando con Supabase...";
+
   const { data, error } = await supabaseClient
     .from("ofertas")
     .select("id, puesto, localidad, descripcion, contacto, estado, creada_en")
@@ -206,14 +212,7 @@ async function cargarOfertas() {
     return;
   }
 
-  if (!data || data.length === 0) {
-    lista.textContent =
-      "Supabase respondió, pero no devolvió ofertas aprobadas.";
-    console.log("Resultado de Supabase:", data);
-    return;
-  }
-
-  ofertasReales = data.map(o => ({
+  ofertasReales = (data || []).map(o => ({
     puesto: o.puesto,
     rubro: "Trabajo",
     zona: o.localidad,
@@ -222,10 +221,6 @@ async function cargarOfertas() {
   }));
 
   mostrar();
-  }
-  
-
-  cargarOfertas();
 }
 
 function mostrar() {
@@ -271,8 +266,7 @@ function mostrar() {
     tarjeta.append(titulo, etiqueta, lugar, descripcion, contacto);
     lista.appendChild(tarjeta);
   });
-  }
-  
+}
 
 function limpiar() {
   document.getElementById("buscar").value = "";
@@ -280,6 +274,9 @@ function limpiar() {
   document.getElementById("filtro").value = "";
   mostrar();
 }
+
+cargarOfertas();
+  
 
 /* Un único evento para publicar ofertas */
 const formulario = document.getElementById("formulario");
@@ -324,7 +321,7 @@ formulario.addEventListener("submit", async function(event) {
   }
 });
 
-mostrar();
+
 </script>
 </body>
                                           </html>
