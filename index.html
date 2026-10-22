@@ -187,9 +187,10 @@ const ejemplos = [
 
 let ofertasReales = [];
 
+
 async function cargarOfertas() {
   const lista = document.getElementById("lista");
-  lista.textContent = "Cargando ofertas...";
+  lista.textContent = "Conectando con Supabase...";
 
   const { data, error } = await supabaseClient
     .from("ofertas")
@@ -199,17 +200,28 @@ async function cargarOfertas() {
 
   if (error) {
     console.error("Error al cargar ofertas:", error);
-    lista.textContent = "No se pudieron cargar las ofertas. Intentá recargar.";
+    lista.textContent = "Error de Supabase: " + error.message;
     return;
   }
 
-  ofertasReales = (data || []).map(o => ({
+  if (!data || data.length === 0) {
+    lista.textContent =
+      "Supabase respondió, pero no devolvió ofertas aprobadas.";
+    console.log("Resultado de Supabase:", data);
+    return;
+  }
+
+  ofertasReales = data.map(o => ({
     puesto: o.puesto,
     rubro: "Trabajo",
     zona: o.localidad,
     descripcion: o.descripcion,
     telefono: o.contacto
   }));
+
+  mostrar();
+  }
+  
 
   cargarOfertas();
 }
