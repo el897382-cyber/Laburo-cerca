@@ -288,7 +288,7 @@ formulario.addEventListener("submit", async function(event) {
     localidad: document.getElementById("zona").value.trim(),
     descripcion: document.getElementById("descripcion").value.trim(),
     contacto: document.getElementById("telefono").value.trim(),
-    estado: "aprobada"
+    estado: "pendiente"
   };
 
   boton.disabled = true;
@@ -302,7 +302,7 @@ formulario.addEventListener("submit", async function(event) {
     if (error) throw error;
 
     estado.textContent =
-      "¡Oferta publicada correctamente! Ya puede aparecer en Laburo Cerca.";
+      "¡Oferta recibida! Será publicada después de la revisión."
 
     formulario.reset();
 
