@@ -28,7 +28,7 @@ footer{text-align:center;padding:22px;color:#64748b}
 
 
 <div style="display:flex;align-items:center;justify-content:center;">
-  <img src="file_000000006be0820e87a9e58fd4ed056f.png" alt="Laburo Cerca" style="width:220px;max-width:90%;height:auto;">
+  <img src="file_000000006be0820e87a9e58fd4ed056f.png" alt="Laburo Cerca" style="width:300px;max-width:95%;height:auto;">
 </div>
 
 
