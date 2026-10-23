@@ -26,7 +26,7 @@ footer{text-align:center;padding:22px;color:#64748b}
 <body>
 <header>
 
-<img src="./file_000000006be0820e87a9e58fd4ed056f.png" alt="Logo Laburo Cerca" style="width:80px; height:auto;">
+<img src="https://el897382-cyber.github.io/Laburo-cerca/file_000000006be0820e87a9e58fd4ed056f.png" alt="Logo Laburo Cerca" style="width:80px;height:auto;">
   <h1>Laburo Cerca</h1>
 </div>
 
