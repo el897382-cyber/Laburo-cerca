@@ -269,6 +269,32 @@ function limpiar() {
   mostrar();
 }
 
+function validarOferta(puesto, localidad, descripcion, contacto) {
+  if (!puesto || !localidad || !descripcion || !contacto) {
+    return "Completá todos los campos.";
+  }
+
+  if (puesto.length < 3 || puesto.length > 80) {
+    return "El puesto debe tener entre 3 y 80 caracteres.";
+  }
+
+  if (localidad.length < 2 || localidad.length > 80) {
+    return "La localidad debe tener entre 2 y 80 caracteres.";
+  }
+
+  if (descripcion.length < 10 || descripcion.length > 1500) {
+    return "La descripción debe tener entre 10 y 1500 caracteres.";
+  }
+
+  const telefonoLimpio = contacto.replace(/[\s()+.-]/g, "");
+
+  if (!/^\d{8,15}$/.test(telefonoLimpio)) {
+    return "Revisá el teléfono: ingresá entre 8 y 15 dígitos.";
+  }
+
+  return "";
+  }
+  
 cargarOfertas();
   
 
