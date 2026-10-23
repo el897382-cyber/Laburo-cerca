@@ -25,7 +25,12 @@ footer{text-align:center;padding:22px;color:#64748b}
 </head>
 <body>
 <header>
-<h1>📍 Laburo Cerca</h1>
+
+<div style="display:flex; align-items:center; justify-content:center; gap:12px;">
+  <img src="file_000000006be0820e87a9e58fd4ed056f.png" alt="Logo Laburo Cerca" style="width:80px; height:auto;">
+  <h1>Laburo Cerca</h1>
+</div>
+
 <p>Encontrá trabajo y changas cerca de vos 🇦🇷</p>
 </header>
 
