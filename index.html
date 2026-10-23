@@ -283,13 +283,29 @@ formulario.addEventListener("submit", async function(event) {
 
   if (!formulario.reportValidity()) return;
 
-  const oferta = {
-    puesto: document.getElementById("puesto").value.trim(),
-    localidad: document.getElementById("zona").value.trim(),
-    descripcion: document.getElementById("descripcion").value.trim(),
-    contacto: document.getElementById("telefono").value.trim(),
-    estado: "pendiente"
-  };
+  
+const puesto = document.getElementById("puesto").value.trim();
+const localidad = document.getElementById("zona").value.trim();
+const descripcion = document.getElementById("descripcion").value.trim();
+const contacto = document.getElementById("telefono").value.trim();
+
+const errorValidacion = validarOferta(
+  puesto, localidad, descripcion, contacto
+);
+
+if (errorValidacion) {
+  document.getElementById("estadoOferta").textContent = errorValidacion;
+  return;
+}
+
+const oferta = {
+  puesto,
+  localidad,
+  descripcion,
+  contacto,
+  estado: "pendiente"
+};
+  
 
   boton.disabled = true;
   estado.textContent = "Enviando oferta...";
