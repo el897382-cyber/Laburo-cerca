@@ -32,7 +32,7 @@ footer{text-align:center;padding:22px;color:#64748b}
 </div>
 
 
-<p>Encontrá trabajo y changas cerca de vos 🇦🇷</p>
+<p>Encontrá trabajo cerca de vos 🇦🇷</p>
 </header>
 
 <main>
@@ -59,7 +59,7 @@ footer{text-align:center;padding:22px;color:#64748b}
 </section>
 
 <section class="panel">
-<h2>➕ Publicar una changa</h2>
+<h2>➕ Publicar un empleo</h2>
 <p class="mensaje">Completá los datos para agregar una oferta en este navegador.</p>
 <form id="formulario">
 <input id="puesto" placeholder="¿Qué trabajo ofrecés?" required>
