@@ -26,9 +26,11 @@ footer{text-align:center;padding:22px;color:#64748b}
 <body>
 <header>
 
-<img src="https://el897382-cyber.github.io/Laburo-cerca/file_000000006be0820e87a9e58fd4ed056f.png" alt="Logo Laburo Cerca" style="width:80px;height:auto;">
-  <h1>Laburo Cerca</h1>
+
+<div style="display:flex;align-items:center;justify-content:center;">
+  <img src="file_000000006be0820e87a9e58fd4ed056f.png" alt="Laburo Cerca" style="width:220px;max-width:90%;height:auto;">
 </div>
+
 
 <p>Encontrá trabajo y changas cerca de vos 🇦🇷</p>
 </header>
