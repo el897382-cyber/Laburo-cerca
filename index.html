@@ -91,19 +91,18 @@ footer { text-align: center; padding: 22px; color: #64748b; }
   
 <p>Encontrá trabajo cerca de vos 🇦🇷</p>
 
-
 <div style="display:flex;justify-content:flex-end;align-items:center;gap:8px;margin:10px 15px 0;">
-<button type="button" style="padding:8px 12px;font-size:14px;" onclick="document.getElementById('cuentas').style.display='block';document.getElementById('modoCuenta').textContent='Ingresá con tu correo y contraseña.';document.getElementById('opcionesRegistro').style.display='none';
-  Ingresar
-</button>
-  
-<button type="button" style="padding:8px 12px;font-size:14px;" onclick="document.getElementById('cuentas').style.display='block';document.getElementById('tipoUsuario').style.display='block';document.getElementById('modoCuenta').textContent='Creá tu cuenta y elegí si buscás empleo o querés publicar ofertas.';document.getElementById('opcionesRegistro').style.display='block';
-  Crear cuenta
-</button>
-  
+  <button type="button" style="padding:8px 12px;font-size:14px;"
+    onclick="document.getElementById('cuentas').style.display='block';document.getElementById('modoCuenta').textContent='Ingresá con tu correo y contraseña.';document.getElementById('opcionesRegistro').style.display='none';document.getElementById('cuentas').scrollIntoView({behavior:'smooth'});">
+    Ingresar
+  </button>
+
+  <button type="button" style="padding:8px 12px;font-size:14px;"
+    onclick="document.getElementById('cuentas').style.display='block';document.getElementById('tipoUsuario').style.display='block';document.getElementById('modoCuenta').textContent='Creá tu cuenta y elegí si buscás empleo o querés publicar ofertas.';document.getElementById('opcionesRegistro').style.display='block';document.getElementById('cuentas').scrollIntoView({behavior:'smooth'});">
+    Crear cuenta
+  </button>
 </div>
-
-
+  
 </header>
 <main>
   <section class="panel">
