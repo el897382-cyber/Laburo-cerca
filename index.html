@@ -198,11 +198,11 @@ async function cargarOfertas() {
   const lista = document.getElementById("lista");
   lista.textContent = "Conectando con Supabase...";
 
-  const { data, error } = await supabaseClient
-    .from("ofertas")
-    .select("id, puesto, localidad, descripcion, contacto, estado, creada_en")
-    .eq("estado", "aprobada")
-    .order("creada_en", { ascending: false });
+ const { data, error } = await supabaseClient
+  .from("ofertas")
+  .select("id, puesto, rubro, localidad, descripcion, contacto, estado, creada_en")
+  .eq("estado", "aprobada")
+  .order("creada_en", { ascending: false });
 
   if (error) {
     console.error("Error al cargar ofertas:", error);
@@ -211,12 +211,12 @@ async function cargarOfertas() {
   }
 
   ofertasReales = (data || []).map(o => ({
-    puesto: o.puesto,
-    rubro: "Trabajo",
-    zona: o.localidad,
-    descripcion: o.descripcion,
-    telefono: o.contacto
-  }));
+  puesto: o.puesto,
+  rubro: o.rubro || "Otros",
+  zona: o.localidad,
+  descripcion: o.descripcion,
+  telefono: o.contacto
+}));
 
   mostrar();
 }
