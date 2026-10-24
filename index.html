@@ -327,14 +327,17 @@ if (errorValidacion) {
   document.getElementById("estadoOferta").textContent = errorValidacion;
   return;
 }
+const rubro = document.getElementById("rubro").value;
 
 const oferta = {
   puesto,
+  rubro,
   localidad,
   descripcion,
   contacto,
   estado: "pendiente"
 };
+
   
 
   boton.disabled = true;
