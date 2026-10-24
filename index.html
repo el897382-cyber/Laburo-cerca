@@ -363,7 +363,97 @@ const oferta = {
     boton.disabled = false;
   }
 });
+/* Registro de cuentas */
+async function registrarCuenta() {
+  const email = document.getElementById("emailCuenta").value.trim();
+  const password = document.getElementById("passwordCuenta").value;
+  const tipo = document.getElementById("tipoUsuario").value;
+  const estado = document.getElementById("estadoCuenta");
 
+  if (!email || !password) {
+    estado.textContent = "Ingresá tu correo y contraseña.";
+    return;
+  }
+
+  if (password.length < 8) {
+    estado.textContent = "La contraseña debe tener al menos 8 caracteres.";
+    return;
+  }
+
+  estado.textContent = "Creando cuenta...";
+
+  try {
+    const { data, error } = await supabaseClient.auth.signUp({
+      email: email,
+      password: password,
+      options: {
+        emailRedirectTo: window.location.origin +
+          window.location.pathname,
+        data: {
+          tipo_usuario: tipo
+        }
+      }
+    });
+
+    if (error) throw error;
+
+    if (data.session) {
+      estado.textContent =
+        "¡Cuenta creada! Ya podés iniciar sesión.";
+    } else {
+      estado.textContent =
+        "¡Registro iniciado! Revisá tu correo y confirmá la cuenta.";
+    }
+  } catch (error) {
+    console.error("Error al registrar:", error);
+    estado.textContent = "No se pudo crear la cuenta: " + error.message;
+  }
+}
+
+/* Inicio de sesión */
+async function iniciarSesion() {
+  const email = document.getElementById("emailCuenta").value.trim();
+  const password = document.getElementById("passwordCuenta").value;
+  const estado = document.getElementById("estadoCuenta");
+
+  if (!email || !password) {
+    estado.textContent = "Ingresá tu correo y contraseña.";
+    return;
+  }
+
+  estado.textContent = "Iniciando sesión...";
+
+  try {
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+      email: email,
+      password: password
+    });
+
+    if (error) throw error;
+
+    estado.textContent =
+      "¡Sesión iniciada correctamente!";
+
+  } catch (error) {
+    console.error("Error al iniciar sesión:", error);
+    estado.textContent =
+      "No se pudo iniciar sesión: " + error.message;
+  }
+}
+
+/* Cerrar sesión */
+async function cerrarSesion() {
+  const estado = document.getElementById("estadoCuenta");
+
+  const { error } = await supabaseClient.auth.signOut();
+
+  if (error) {
+    estado.textContent = "No se pudo cerrar sesión: " + error.message;
+    return;
+  }
+
+  estado.textContent = "Sesión cerrada correctamente.";
+  }
 
 </script>
 </body>
