@@ -64,8 +64,27 @@ footer { text-align: center; padding: 22px; color: #64748b; }
 </head>
 
 <body>
-<header>
-  
+<section id="cuentas" style="background:white;padding:18px;margin:16px auto;max-width:800px;border-radius:14px;">
+  <h2>Tu cuenta en Laburo Cerca</h2>
+  <p>Creá una cuenta para buscar empleo o publicar ofertas.</p><label for="tipoUsuario">¿Qué querés hacer?</label>
+<select id="tipoUsuario" style="display:block;width:100%;padding:12px;margin:10px 0;">
+<option value="postulante">Busco empleo</option>
+<option value="empleador">Quiero publicar empleos</option>
+</select>
+
+<label for="emailCuenta">Correo electrónico</label>
+<input id="emailCuenta" type="email" placeholder="Tu correo electrónico" style="display:block;width:100%;padding:12px;margin:10px 0;">
+
+<label for="passwordCuenta">Contraseña</label>
+<input id="passwordCuenta" type="password" placeholder="Mínimo 8 caracteres" style="display:block;width:100%;padding:12px;margin:10px 0;">
+
+<button type="button" onclick="registrarCuenta()">Crear cuenta</button>
+<button type="button" onclick="iniciarSesion()">Iniciar sesión</button>
+<button type="button" onclick="cerrarSesion()">Cerrar sesión</button>
+
+  <p id="estadoCuenta" role="status"></p>
+</section>
+<header>  
 <div style="display:flex;align-items:center;justify-content:center;">
   <img src="file_000000006be0820e87a9e58fd4ed056f.png" alt="Laburo Cerca" style="width:300px;max-width:95%;height:auto;">
 </div>
