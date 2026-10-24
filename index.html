@@ -91,11 +91,11 @@ footer { text-align: center; padding: 22px; color: #64748b; }
   
 <p>Encontrá trabajo cerca de vos 🇦🇷</p>
 
-<div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:15px;">
-  <button type="button" onclick="document.getElementById('cuentas').style.display='block';document.getElementById('cuentas').scrollIntoView({behavior:'smooth'});">
+<div style="position:absolute;top:15px;right:15px;display:flex;flex-direction:row;gap:8px;z-index:10;">
+  <button type="button" style="padding:8px 12px;font-size:14px;" onclick="document.getElementById('cuentas').style.display='block';document.getElementById('cuentas').scrollIntoView({behavior:'smooth'});">
     Ingresar
   </button>
-  <button type="button" onclick="document.getElementById('cuentas').style.display='block';document.getElementById('cuentas').scrollIntoView({behavior:'smooth'});">
+  <button type="button" style="padding:8px 12px;font-size:14px;" onclick="document.getElementById('cuentas').style.display='block';document.getElementById('cuentas').scrollIntoView({behavior:'smooth'});">
     Crear cuenta
   </button>
 </div>
