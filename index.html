@@ -106,13 +106,25 @@ onclick="document.getElementById('menuCuenta').style.display=document.getElement
 ☰
 </button>
 </div>  
+
+<div id="menuCuenta" style="display:none;background:white;color:#087f5b;padding:12px;margin:10px 15px 0 auto;max-width:240px;border-radius:10px;box-shadow:0 2px 8px #0002;text-align:left;">
+  <button type="button" style="display:block;width:100%;margin:5px 0;" onclick="document.getElementById('cuentas').style.display='block';document.getElementById('modoCuenta').textContent='Busco empleo';document.getElementById('cuentas').scrollIntoView({behavior:'smooth'});document.getElementById('menuCuenta').style.display='none';">
+    Busco empleo
+  </button>
+  <button type="button" style="display:block;width:100%;margin:5px 0;" onclick="document.getElementById('cuentas').style.display='block';document.getElementById('modoCuenta').textContent='Quiero publicar empleos';document.getElementById('cuentas').scrollIntoView({behavior:'smooth'});document.getElementById('menuCuenta').style.display='none';">
+    Quiero publicar empleos
+  </button>
+  <button type="button" style="display:block;width:100%;margin:5px 0;" onclick="cerrarSesion();document.getElementById('menuCuenta').style.display='none';">
+    Cerrar sesión
+  </button>
+    </div>
+  
 </header>
 <main>
   <section class="panel">
     <h2>🔎 Buscar trabajo</h2>
     <input id="buscar" placeholder="¿Qué trabajo buscás? Ej. albañil">
     <input id="localidadBuscar" placeholder="Tu localidad. Ej. Don Torcuato">
-
     <select id="filtro">
       <option value="">Todos los oficios</option>
       <option>Construcción</option>
