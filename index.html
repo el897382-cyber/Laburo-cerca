@@ -502,6 +502,47 @@ const supabaseClient = window.supabase.createClient(
   SUPABASE_KEY
 );
 
+async function continuarConCorreo() {
+  const email = document.getElementById("emailCuenta").value.trim();
+  const estado = document.getElementById("estadoCuenta");
+
+  if (!email) {
+    estado.textContent = "Ingresá tu correo electrónico.";
+    return;
+  }
+
+  const { error } = await supabaseClient.auth.signInWithOtp({
+    email: email,
+    options: {
+      emailRedirectTo: window.location.origin
+    }
+  });
+
+  estado.textContent = error
+    ? "No se pudo enviar el enlace: " + error.message
+    : "Te enviamos un enlace a tu correo para ingresar.";
+}
+
+function ingresarConGoogle() {
+  supabaseClient.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      redirectTo: window.location.origin
+    }
+  }).then(({ error }) => {
+    if (error) {
+      document.getElementById("estadoCuenta").textContent =
+        "No se pudo ingresar con Google. Revisá la configuración.";
+    }
+  });
+}
+
+function ingresarComoEmpresa() {
+  document.getElementById("estadoCuenta").textContent =
+    "Acceso para empresas: ingresá tu correo para continuar.";
+  document.getElementById("emailCuenta").focus();
+  }
+  
 const ejemplos = [
   {
     puesto: "Ayudante de construcción",
