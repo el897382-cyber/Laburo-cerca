@@ -6,61 +6,267 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Laburo Cerca</title>
 
+
 <style>
-* { box-sizing: border-box; }
+:root {
+  --azul: #155eef;
+  --azul-oscuro: #123b83;
+  --fondo: #f4f7fc;
+  --texto: #172b4d;
+  --secundario: #667085;
+  --borde: #e2e8f0;
+  --blanco: #ffffff;
+  --radio: 18px;
+  --sombra: 0 8px 28px rgba(23, 43, 77, .06);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f1f5f9;
-  color: #172033;
+  font-family: Inter, system-ui, -apple-system, Arial, sans-serif;
+  background: var(--fondo);
+  color: var(--texto);
+  line-height: 1.55;
 }
+
 header {
-  background: #087f5b;
+  background: linear-gradient(135deg, #123b83, #155eef) !important;
   color: white;
-  padding: 28px 16px;
+  padding: 28px 16px 38px;
   text-align: center;
+  box-shadow: 0 8px 25px rgba(21, 94, 239, .15);
 }
-header h1 { margin: 0; font-size: 32px; }
-main { max-width: 800px; margin: auto; padding: 16px; }
-.panel, .trabajo {
-  background: white;
-  padding: 18px;
-  border-radius: 14px;
-  margin-bottom: 16px;
-  box-shadow: 0 2px 8px #0000000c;
+
+header img {
+  width: min(280px, 90%);
+  max-width: 100%;
+  height: auto;
 }
-h2 { margin-top: 0; font-size: 21px; }
-input, select, textarea, button {
+
+header p {
+  margin: 12px 0;
+  color: #edf4ff;
+}
+
+main {
+  width: min(100% - 28px, 960px);
+  margin: 28px auto;
+  padding: 0;
+}
+
+.panel,
+#cuentas {
+  background: var(--blanco);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: clamp(18px, 4vw, 28px);
+  margin-bottom: 22px;
+  box-shadow: var(--sombra);
+}
+
+#cuentas {
+  width: calc(100% - 28px);
+}
+
+h2 {
+  margin: 0 0 12px;
+  font-size: clamp(20px, 4vw, 25px);
+  letter-spacing: -.5px;
+}
+
+h3 {
+  font-size: 19px;
+}
+
+.mensaje {
+  color: var(--secundario);
+  font-size: 14px;
+}
+
+input,
+select,
+textarea {
+  display: block;
   width: 100%;
-  padding: 12px;
-  margin: 6px 0;
-  border-radius: 8px;
-  font-size: 16px;
-}
-input, select, textarea {
+  min-height: 48px;
+  padding: 12px 14px;
+  margin: 9px 0;
   border: 1px solid #cbd5e1;
+  border-radius: 11px;
   background: white;
+  color: var(--texto);
+  font: inherit;
+  font-size: 16px;
+  transition: border-color .2s, box-shadow .2s;
 }
+
+textarea {
+  resize: vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--azul);
+  box-shadow: 0 0 0 3px rgba(21, 94, 239, .13);
+}
+
 button {
+  width: 100%;
+  min-height: 46px;
+  padding: 12px 16px;
+  margin: 6px 0;
   border: 0;
-  background: #087f5b;
+  border-radius: 11px;
+  background: var(--azul) !important;
   color: white;
-  font-weight: bold;
+  font: inherit;
+  font-weight: 700;
   cursor: pointer;
+  transition: background .2s, transform .2s;
 }
-button:disabled { opacity: .6; cursor: wait; }
-.trabajo h3 { margin: 0 0 8px; color: #087f5b; }
+
+button:hover {
+  background: var(--azul-oscuro) !important;
+}
+
+button:active {
+  transform: scale(.99);
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid #93c5fd;
+  outline-offset: 3px;
+}
+
+button:disabled {
+  opacity: .6;
+  cursor: wait;
+}
+
+button[style*="#64748b"] {
+  background: #64748b !important;
+}
+
+header > div button,
+#menuCuenta button {
+  width: auto;
+}
+
+#menuCuenta {
+  background: white;
+  color: var(--texto);
+  border: 1px solid var(--borde);
+  border-radius: 14px;
+  padding: 12px;
+  box-shadow: var(--sombra);
+}
+
+#menuCuenta button {
+  width: 100%;
+}
+
+.trabajo {
+  background: white;
+  padding: 20px;
+  border: 1px solid var(--borde);
+  border-radius: 15px;
+  margin: 14px 0;
+  box-shadow: 0 3px 12px rgba(23, 43, 77, .04);
+  overflow-wrap: anywhere;
+}
+
+.trabajo h3 {
+  margin: 0 0 10px;
+  color: var(--azul);
+}
+
 .etiqueta {
   display: inline-block;
-  background: #d1fae5;
-  padding: 5px 9px;
-  border-radius: 20px;
+  background: #e8f0ff;
+  color: #1746a2;
+  padding: 5px 11px;
+  border-radius: 30px;
   font-size: 13px;
+  font-weight: 700;
   margin: 3px 0;
 }
-.mensaje { color: #475569; font-size: 14px; }
-footer { text-align: center; padding: 22px; color: #64748b; }
-</style>
+
+a[href^="https://mpago.la"] {
+  background: var(--azul) !important;
+  border-radius: 11px !important;
+}
+
+footer {
+  text-align: center;
+  padding: 28px 16px;
+  color: var(--secundario);
+  font-size: 14px;
+}
+
+@media (min-width: 700px) {
+  header {
+    padding: 32px 24px 40px;
+  }
+
+  main {
+    margin-top: 32px;
+  }
+
+  #formulario {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 14px;
+  }
+
+  #formulario input,
+  #formulario select,
+  #formulario textarea,
+  #formulario button,
+  #formulario p {
+    margin: 0;
+  }
+
+  #descripcion,
+  #botonPublicar,
+  #estadoOferta {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 480px) {
+  header {
+    padding: 22px 12px 28px;
+  }
+
+  header > div:first-child img {
+    width: min(240px, 90%);
+  }
+
+  .panel,
+  #cuentas {
+    padding: 17px;
+    border-radius: 14px;
+  }
+
+  header > div:nth-of-type(2) {
+    justify-content: center !important;
+    flex-wrap: wrap;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+  </style>
+  
 </head>
 
 <body>
@@ -98,8 +304,9 @@ footer { text-align: center; padding: 22px; color: #64748b; }
   </button>
 
   <button type="button" style="padding:8px 12px;font-size:14px;"
-    onclick="document.getElementById('cuentas').style.display='block';document.getElementById('tipoUsuario').style.display='block';document.getElementById('modoCuenta').textContent='Creá tu cuenta y elegí si buscás empleo o querés publicar ofertas.';document.getElementById('opcionesRegistro').style.display='block';document.getElementById('cuentas').scrollIntoView({behavior:'smooth'});">
-    Crear cuenta
+
+onclick="document.getElementById('cuentas').style.display='block';document.getElementById('tipoUsuario').style.display='block';document.getElementById('modoCuenta').textContent='Creá tu cuenta y elegí si buscás empleo o querés publicar ofertas.';document.getElementById('cuentas').scrollIntoView({behavior:'smooth'});"
+    Crear cuentas 
   </button>
 <button type="button" style="padding:8px 12px;font-size:20px;"
 onclick="document.getElementById('menuCuenta').style.display=document.getElementById('menuCuenta').style.display==='block'?'none':'block';">
