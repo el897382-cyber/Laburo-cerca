@@ -270,7 +270,7 @@ footer {
 </head>
 
 <body>
-<section id="cuentas" style="display:none;background:white;padding:18px;margin:16px auto;max-width:800px;border-radius:14px;"> <h2>Tu cuenta en Laburo Cerca</h2>
+<section id="cuentas" style="display:none;background:white;padding:18px;margin:16px auto;max-width:800px;border-radius:14px;"> <h2 id="tituloCuenta">Tu cuenta en Laburo Cerca</h2>
 <p>Creá una cuenta para buscar empleo o publicar ofertas.</p><label for="tipoUsuario">¿Qué querés hacer?</label>
 <p id="modoCuenta">Elegí una opción para continuar.</p>
 <select id="tipoUsuario" style="display:block;width:100%;padding:12px;margin:10px 0;">
@@ -298,32 +298,25 @@ footer {
 <p>Encontrá trabajo cerca de vos 🇦🇷</p>
 
 <div style="display:flex;justify-content:flex-end;align-items:center;gap:8px;margin:10px 15px 0;">
-  <button type="button" style="padding:8px 12px;font-size:14px;"
-  onclick="document.getElementById('cuentas').style.display='block';document.getElementById('tipoUsuario').style.display='none';document.getElementById('modoCuenta').textContent='Ingresá con tu correo y contraseña.';document.getElementById('cuentas').scrollIntoView({behavior:'smooth'});"
-    Ingresar
-  </button>
-
-  <button type="button" style="padding:8px 12px;font-size:14px;"
-
- onclick="document.getElementById('cuentas').style.display='block';document.getElementById('tipoUsuario').style.display='block';document.getElementById('modoCuenta').textContent='Creá tu cuenta y elegí si buscás empleo o querés publicar ofertas.';document.getElementById('cuentas').scrollIntoView({behavior:'smooth'});"
-    Crear cuentas 
-  </button>
-<button type="button" style="padding:8px 12px;font-size:20px;"
-onclick="document.getElementById('menuCuenta').style.display=document.getElementById('menuCuenta').style.display==='block'?'none':'block';">
-☰
+  
+<button type="button" style="padding:8px 12px;font-size:14px;"
+  onclick="document.getElementById('cuentas').style.display='block';
+  document.getElementById('tipoUsuario').style.display='none';
+  document.getElementById('modoCuenta').textContent='Ingresá con tu correo y contraseña.';
+  document.getElementById('tituloCuenta').textContent='Ingresar a tu cuenta';
+  document.getElementById('cuentas').scrollIntoView({behavior:'smooth'});">
+  Ingresar
 </button>
-</div>  
 
-<div id="menuCuenta" style="display:none;background:white;color:#087f5b;padding:12px;margin:10px 15px 0 auto;max-width:240px;border-radius:10px;box-shadow:0 2px 8px #0002;text-align:left;">
-  <button type="button" style="display:block;width:100%;margin:5px 0;" onclick="document.getElementById('cuentas').style.display='block';document.getElementById('modoCuenta').textContent='Busco empleo';document.getElementById('cuentas').scrollIntoView({behavior:'smooth'});document.getElementById('menuCuenta').style.display='none';">
-    Busco empleo
-  </button>
-  <button type="button" style="display:block;width:100%;margin:5px 0;" onclick="document.getElementById('cuentas').style.display='block';document.getElementById('modoCuenta').textContent='Quiero publicar empleos';document.getElementById('cuentas').scrollIntoView({behavior:'smooth'});document.getElementById('menuCuenta').style.display='none';">
-    Quiero publicar empleos
-  </button>
-  <button type="button" style="display:block;width:100%;margin:5px 0;" onclick="cerrarSesion();document.getElementById('menuCuenta').style.display='none';">
-    Cerrar sesión
-  </button>
+<button type="button" style="padding:8px 12px;font-size:14px;"
+  onclick="document.getElementById('cuentas').style.display='block';
+  document.getElementById('tipoUsuario').style.display='block';
+  document.getElementById('modoCuenta').textContent='Creá tu cuenta y elegí si buscás empleo o querés publicar ofertas.';
+  document.getElementById('tituloCuenta').textContent='Crear tu cuenta';
+  document.getElementById('cuentas').scrollIntoView({behavior:'smooth'});">
+  Crear cuenta
+</button>
+  
     </div>
   
 </header>
