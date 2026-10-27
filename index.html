@@ -196,7 +196,7 @@ function openAuth(mode="magic", role=null) {
   authMode = mode;
   $("authBackdrop").classList.remove("hidden");
   $("passwordField").classList.toggle("hidden", mode === "magic");
-  $("roleField").classList.toggle("hidden", mode !== "signup");
+  $("roleField").classList.add("hidden");
   $("authPassword").required = mode !== "magic";
   $("authPassword").autocomplete = mode === "signup" ? "new-password" : "current-password";
   $("authTitle").textContent = mode === "signup" ? "Creá tu cuenta" : mode === "password" ? "Ingresá a tu cuenta" : "Ingresá a Laburo Cerca";
