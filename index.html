@@ -166,7 +166,7 @@ footer{text-align:center;padding:24px 16px 32px;color:var(--muted);font-size:14p
     <p class="status" id="jobStatus" role="status" aria-live="polite"></p>
   </section>
 </div>
-
+</div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 /* CONFIGURACIÓN: completá estos valores con los datos de tu proyecto Supabase. */
@@ -246,9 +246,12 @@ $("authForm").addEventListener("submit", async e => {
       });
     } else if (authMode === "signup") {
       result = await supabaseClient.auth.signUp({
-        email, password,
-        options: {
-          emailRedirectTo: window.location.origin + window.location.pathname,
+  email,
+  password,
+  options: {
+    emailRedirectTo: window.location.origin + window.location.pathname
+  }
+});
           data: { tipo_usuario: $("userRole").value }
         }
       });
