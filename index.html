@@ -1,1 +1,374 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#155eef">
+<title>Laburo Cerca | Encontrá trabajo cerca de vos</title>
+<style>
+:root{--blue:#155eef;--blue-dark:#123b83;--ink:#172b4d;--muted:#667085;--bg:#f4f7fc;--border:#e2e8f0;--white:#fff;--radius:18px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif;line-height:1.5}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.site-header{background:#fff;border-bottom:1px solid var(--border);padding:18px 20px}
+.header-inner{max-width:1080px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{font-size:27px;font-weight:800;letter-spacing:-.8px;color:var(--blue-dark);text-decoration:none}
+.logo span{color:var(--blue)}
+.header-actions{display:flex;gap:10px;align-items:center}
+.btn{border:0;border-radius:12px;padding:12px 18px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;text-decoration:none}
+.btn-primary{background:var(--blue);color:white}
+.btn-primary:hover{background:#104bc5}
+.btn-outline{background:#fff;color:var(--blue-dark);border:1px solid #b8c8e5}
+main{max-width:1080px;margin:0 auto;padding:24px 18px 48px}
+.hero{background:#fff;border:1px solid var(--border);border-radius:24px;padding:clamp(22px,5vw,54px);box-shadow:0 8px 28px #172b4d0a}
+.eyebrow{color:var(--blue);font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px}
+h1{font-size:clamp(30px,5vw,48px);line-height:1.12;letter-spacing:-1.2px;margin:10px 0 12px;max-width:720px}
+.lead{color:var(--muted);font-size:18px;margin:0 0 26px}
+.search-form{display:grid;grid-template-columns:1.2fr 1fr auto;gap:10px;align-items:end}
+.field label{display:block;font-size:14px;font-weight:700;margin:0 0 7px}
+.field input,.field select,.field textarea{width:100%;min-height:52px;padding:12px 14px;border:1px solid #cfd8e6;border-radius:12px;background:white;color:var(--ink)}
+.field textarea{min-height:120px;resize:vertical}
+.search-form .btn{min-height:52px}
+.section{margin-top:26px}
+.section-title{font-size:24px;line-height:1.2;margin:0 0 8px}
+.section-copy{color:var(--muted);margin:0 0 16px}
+.two-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.card{background:#fff;border:1px solid var(--border);border-radius:20px;padding:24px}
+.card h2{margin:0 0 8px;font-size:22px}
+.card p{color:var(--muted);margin:0 0 18px}
+.card .btn{width:100%}
+.offer-list{display:grid;gap:12px}
+.offer-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:18px}
+.offer-card h3{margin:0 0 5px;font-size:19px}
+.offer-meta{color:var(--muted);font-size:14px;margin:0 0 10px}
+.offer-desc{margin:0 0 14px;white-space:pre-wrap;overflow-wrap:anywhere}
+.pill{display:inline-block;padding:4px 10px;border-radius:999px;background:#eaf1ff;color:#1749a5;font-size:12px;font-weight:700}
+.empty{padding:24px;text-align:center;background:#fff;border:1px dashed #b8c8e5;border-radius:16px;color:var(--muted)}
+.hidden{display:none!important}
+.modal-backdrop{position:fixed;inset:0;background:#101828a8;display:flex;align-items:center;justify-content:center;padding:16px;z-index:10;overflow:auto}
+.modal{background:#fff;width:min(100%,480px);max-height:94vh;overflow:auto;border-radius:22px;padding:26px;box-shadow:0 24px 80px #10182855}
+.modal-top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
+.modal h2{margin:0 0 6px;font-size:26px}
+.modal-intro{color:var(--muted);margin:0 0 20px}
+.close-btn{border:0;background:#f2f4f7;border-radius:50%;width:38px;height:38px;font-size:22px;flex:0 0 auto}
+.stack{display:grid;gap:14px}
+.status{min-height:24px;margin:12px 0 0;font-size:14px;overflow-wrap:anywhere}
+.status.error{color:#b42318}.status.success{color:#067647}
+.switch-auth{color:var(--muted);font-size:14px;text-align:center;margin:18px 0 0}
+.text-button{border:0;background:none;color:var(--blue);font-weight:700;padding:0}
+.divider{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:13px;margin:4px 0}
+.divider:before,.divider:after{content:"";height:1px;background:var(--border);flex:1}
+footer{text-align:center;padding:24px 16px 32px;color:var(--muted);font-size:14px}
+@media(max-width:700px){.header-inner{align-items:center}.logo{font-size:23px}.header-actions .btn{padding:10px 12px}.search-form{grid-template-columns:1fr}.two-cards{grid-template-columns:1fr}main{padding:16px 12px 36px}.hero{border-radius:18px;padding:24px 18px}.lead{font-size:16px}.card{padding:20px}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo" href="#" aria-label="Laburo Cerca, inicio">Laburo <span>Cerca</span></a>
+    <div class="header-actions">
+      <button class="btn btn-outline" type="button" id="loginHeader">Ingresar</button>
+    </div>
+  </div>
+</header>
 
+<main>
+  <section class="hero">
+    <div class="eyebrow">Oportunidades cerca tuyo</div>
+    <h1>Tu próximo empleo comienza aquí</h1>
+    <p class="lead">Buscá trabajo por oficio y localidad. Encontrá oportunidades cerca de vos.</p>
+    <form class="search-form" id="searchForm">
+      <div class="field">
+        <label for="buscar">¿Qué trabajo buscás?</label>
+        <input id="buscar" type="search" placeholder="Ej. albañil, limpieza, reparto">
+      </div>
+      <div class="field">
+        <label for="localidadBuscar">¿Dónde?</label>
+        <input id="localidadBuscar" type="search" placeholder="Ej. Don Torcuato">
+      </div>
+      <button class="btn btn-primary" type="submit">Buscar empleos</button>
+    </form>
+  </section>
+
+  <section class="two-cards section">
+    <article class="card">
+      <h2>Tu próximo empleo comienza aquí</h2>
+      <p>Ingresá o creá tu cuenta para guardar ofertas y postularte.</p>
+      <button class="btn btn-primary" type="button" id="startButton">Comenzar</button>
+    </article>
+    <article class="card">
+      <h2>¿Necesitás contratar?</h2>
+      <p>Publicá una oferta y encontrá personas para tu equipo.</p>
+      <button class="btn btn-outline" type="button" id="employerButton">Publicar un empleo</button>
+    </article>
+  </section>
+
+  <section class="section" id="ofertasSection">
+    <h2 class="section-title">Ofertas de empleo</h2>
+    <p class="section-copy" id="offerIntro">Explorá oportunidades publicadas en Laburo Cerca.</p>
+    <div id="listaOfertas" class="offer-list"><div class="empty">Cargando ofertas…</div></div>
+  </section>
+</main>
+
+<footer>Laburo Cerca · Encontrá trabajo cerca de vos 🇦🇷</footer>
+
+<div id="authBackdrop" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+  <section class="modal">
+    <div class="modal-top">
+      <div>
+        <a class="logo" href="#" aria-label="Laburo Cerca">Laburo <span>Cerca</span></a>
+        <h2 id="authTitle" style="margin-top:20px">Ingresá a tu cuenta</h2>
+      </div>
+      <button class="close-btn" type="button" id="closeAuth" aria-label="Cerrar">×</button>
+    </div>
+    <p class="modal-intro" id="authIntro">Ingresá con tu correo para continuar.</p>
+    <form id="authForm" class="stack">
+      <div class="field">
+        <label for="authEmail">Correo electrónico</label>
+        <input id="authEmail" type="email" autocomplete="email" placeholder="vos@correo.com" required>
+      </div>
+      <div class="field hidden" id="passwordField">
+        <label for="authPassword">Contraseña (mínimo 8 caracteres)</label>
+        <input id="authPassword" type="password" minlength="8" autocomplete="new-password">
+      </div>
+      <div class="field hidden" id="roleField">
+        <label for="userRole">¿Qué querés hacer?</label>
+        <select id="userRole">
+          <option value="postulante">Busco empleo</option>
+          <option value="empleador">Quiero publicar empleos</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" type="submit" id="authSubmit">Continuar con correo</button>
+      <button class="btn btn-outline" type="button" id="passwordMode">Crear cuenta con contraseña</button>
+    </form>
+    <p class="switch-auth">¿Ya tenés cuenta? <button class="text-button" type="button" id="loginMode">Ingresar con contraseña</button></p>
+    <p class="switch-auth">Google: disponible cuando se habilite el proveedor en Supabase.</p>
+    <p class="status" id="authStatus" role="status" aria-live="polite"></p>
+  </section>
+</div>
+
+<div id="employerBackdrop" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="employerTitle">
+  <section class="modal">
+    <div class="modal-top">
+      <div><h2 id="employerTitle">Publicá un empleo</h2><p class="modal-intro">Completá los datos de la oportunidad.</p></div>
+      <button class="close-btn" type="button" id="closeEmployer" aria-label="Cerrar">×</button>
+    </div>
+    <form id="jobForm" class="stack">
+      <div class="field"><label for="jobTitle">Puesto</label><input id="jobTitle" required maxlength="100" placeholder="Ej. Ayudante de albañil"></div>
+      <div class="field"><label for="jobCategory">Rubro</label><select id="jobCategory" required><option value="">Elegí un rubro</option><option>Construcción</option><option>Limpieza</option><option>Reparto</option><option>Gastronomía</option><option>Comercio</option><option>Otros</option></select></div>
+      <div class="field"><label for="jobLocation">Localidad</label><input id="jobLocation" required maxlength="100" placeholder="Ej. Don Torcuato"></div>
+      <div class="field"><label for="jobDescription">Descripción</label><textarea id="jobDescription" required maxlength="3000" placeholder="Tareas, horario, requisitos…"></textarea></div>
+      <div class="field"><label for="jobContact">Teléfono de contacto</label><input id="jobContact" type="tel" required maxlength="30" placeholder="Ej. 1123456789"></div>
+      <button class="btn btn-primary" type="submit" id="publishButton">Enviar oferta</button>
+    </form>
+    <p class="status" id="jobStatus" role="status" aria-live="polite"></p>
+  </section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+/* CONFIGURACIÓN: completá estos valores con los datos de tu proyecto Supabase. */
+const SUPABASE_URL = "https://qjtdxoupxcbbolwjugco.supabase.co";
+const SUPABASE_KEY = "PEGÁ_ACÁ_TU_CLAVE_PUBLICABLE_DE_SUPABASE";
+
+let supabaseClient = null;
+try {
+  if (window.supabase && SUPABASE_URL.startsWith("https://") &&
+      SUPABASE_KEY && !SUPABASE_KEY.includes("PEGÁ_ACÁ")) {
+    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  }
+} catch (err) {
+  console.error("No se pudo iniciar Supabase:", err);
+}
+
+const $ = (id) => document.getElementById(id);
+let authMode = "magic";
+let allOffers = [];
+
+function setStatus(id, message, kind="") {
+  const el = $(id);
+  el.textContent = message;
+  el.className = "status" + (kind ? " " + kind : "");
+}
+function openAuth(mode="magic", role=null) {
+  authMode = mode;
+  $("authBackdrop").classList.remove("hidden");
+  $("passwordField").classList.toggle("hidden", mode === "magic");
+  $("roleField").classList.toggle("hidden", mode !== "signup");
+  $("authPassword").required = mode !== "magic";
+  $("authPassword").autocomplete = mode === "signup" ? "new-password" : "current-password";
+  $("authTitle").textContent = mode === "signup" ? "Creá tu cuenta" : mode === "password" ? "Ingresá a tu cuenta" : "Ingresá a Laburo Cerca";
+  $("authIntro").textContent = role === "empleador" ? "Acceso para empresas: ingresá o creá tu cuenta para publicar empleos." : "Ingresá con tu correo para continuar.";
+  $("authSubmit").textContent = mode === "magic" ? "Enviar enlace por correo" : mode === "signup" ? "Crear cuenta" : "Iniciar sesión";
+  $("passwordMode").classList.toggle("hidden", mode !== "magic");
+  $("loginMode").textContent = mode === "password" ? "Crear cuenta" : "Ingresar con contraseña";
+  $("authStatus").textContent = "";
+  if (role) $("userRole").value = role === "empleador" ? "empleador" : "postulante";
+  setTimeout(() => $("authEmail").focus(), 50);
+}
+function closeAuth() { $("authBackdrop").classList.add("hidden"); }
+function openEmployer() {
+  $("employerBackdrop").classList.remove("hidden");
+  setStatus("jobStatus", supabaseClient ? "" : "Primero configurá la clave pública de Supabase en el código.");
+}
+function closeEmployer() { $("employerBackdrop").classList.add("hidden"); }
+
+$("loginHeader").addEventListener("click", () => openAuth("magic"));
+$("startButton").addEventListener("click", () => openAuth("magic"));
+$("employerButton").addEventListener("click", () => openAuth("magic", "empleador"));
+$("closeAuth").addEventListener("click", closeAuth);
+$("closeEmployer").addEventListener("click", closeEmployer);
+$("authBackdrop").addEventListener("click", e => { if (e.target === $("authBackdrop")) closeAuth(); });
+$("employerBackdrop").addEventListener("click", e => { if (e.target === $("employerBackdrop")) closeEmployer(); });
+$("passwordMode").addEventListener("click", () => openAuth("signup"));
+$("loginMode").addEventListener("click", () => openAuth(authMode === "password" ? "signup" : "password"));
+document.addEventListener("keydown", e => { if (e.key === "Escape") { closeAuth(); closeEmployer(); } });
+
+$("authForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const email = $("authEmail").value.trim();
+  const password = $("authPassword").value;
+  if (!supabaseClient) {
+    setStatus("authStatus", "Falta configurar la clave publicable de Supabase en SUPABASE_KEY.", "error");
+    return;
+  }
+  const submit = $("authSubmit");
+  submit.disabled = true;
+  setStatus("authStatus", "Procesando…");
+  try {
+    let result;
+    if (authMode === "magic") {
+      result = await supabaseClient.auth.signInWithOtp({
+        email,
+        options: { emailRedirectTo: window.location.origin + window.location.pathname }
+      });
+    } else if (authMode === "signup") {
+      result = await supabaseClient.auth.signUp({
+        email, password,
+        options: {
+          emailRedirectTo: window.location.origin + window.location.pathname,
+          data: { tipo_usuario: $("userRole").value }
+        }
+      });
+    } else {
+      result = await supabaseClient.auth.signInWithPassword({ email, password });
+    }
+    if (result.error) throw result.error;
+    setStatus("authStatus", authMode === "magic"
+      ? "Te enviamos un enlace. Revisá tu correo."
+      : authMode === "signup"
+        ? "Registro iniciado. Revisá tu correo si te pide confirmar la cuenta."
+        : "¡Sesión iniciada correctamente!", "success");
+  } catch (err) {
+    console.error(err);
+    setStatus("authStatus", "No se pudo continuar: " + (err.message || "error desconocido"), "error");
+  } finally {
+    submit.disabled = false;
+  }
+});
+
+$("searchForm").addEventListener("submit", e => {
+  e.preventDefault();
+  renderOffers();
+  $("ofertasSection").scrollIntoView({ behavior: "smooth", block: "start" });
+});
+
+$("jobForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  if (!$("jobForm").reportValidity()) return;
+  if (!supabaseClient) {
+    setStatus("jobStatus", "Falta configurar la clave publicable de Supabase en SUPABASE_KEY.", "error");
+    return;
+  }
+  const contact = $("jobContact").value.trim();
+  const digits = contact.replace(/[\s()+.-]/g, "");
+  if (!/^\d{8,15}$/.test(digits)) {
+    setStatus("jobStatus", "Revisá el teléfono: ingresá entre 8 y 15 dígitos.", "error");
+    return;
+  }
+  const button = $("publishButton");
+  button.disabled = true;
+  setStatus("jobStatus", "Enviando oferta…");
+  try {
+    const offer = {
+      puesto: $("jobTitle").value.trim(),
+      rubro: $("jobCategory").value,
+      localidad: $("jobLocation").value.trim(),
+      descripcion: $("jobDescription").value.trim(),
+      contacto: contact,
+      estado: "pendiente"
+    };
+    const { error } = await supabaseClient.from("ofertas").insert([offer]);
+    if (error) throw error;
+    setStatus("jobStatus", "¡Oferta recibida! Se publicará después de la revisión.", "success");
+    $("jobForm").reset();
+    await loadOffers();
+  } catch (err) {
+    console.error("Error al publicar:", err);
+    setStatus("jobStatus", "No se pudo publicar: " + (err.message || "error desconocido"), "error");
+  } finally {
+    button.disabled = false;
+  }
+});
+
+async function loadOffers() {
+  const list = $("listaOfertas");
+  if (!supabaseClient) {
+    list.innerHTML = '<div class="empty">Configurá la clave publicable de Supabase para cargar las ofertas.</div>';
+    return;
+  }
+  list.innerHTML = '<div class="empty">Cargando ofertas…</div>';
+  try {
+    const { data, error } = await supabaseClient
+      .from("ofertas")
+      .select("id, puesto, rubro, localidad, descripcion, contacto, estado, created_at")
+      .eq("estado", "publicada")
+      .order("created_at", { ascending: false })
+      .limit(50);
+    if (error) throw error;
+    allOffers = data || [];
+    renderOffers();
+  } catch (err) {
+    console.error("Error al cargar ofertas:", err);
+    list.innerHTML = '<div class="empty">No pudimos cargar las ofertas. Revisá la conexión y los permisos de lectura (RLS) de Supabase.</div>';
+  }
+}
+function renderOffers() {
+  const list = $("listaOfertas");
+  const query = $("buscar").value.trim().toLocaleLowerCase("es");
+  const location = $("localidadBuscar").value.trim().toLocaleLowerCase("es");
+  const filtered = allOffers.filter(o => {
+    const text = [o.puesto, o.rubro, o.descripcion].filter(Boolean).join(" ").toLocaleLowerCase("es");
+    const loc = (o.localidad || "").toLocaleLowerCase("es");
+    return (!query || text.includes(query)) && (!location || loc.includes(location));
+  });
+  if (!filtered.length) {
+    list.innerHTML = '<div class="empty">No encontramos ofertas con esos filtros. Probá otra búsqueda o volvé más tarde.</div>';
+    return;
+  }
+  list.replaceChildren();
+  filtered.forEach(o => {
+    const card = document.createElement("article");
+    card.className = "offer-card";
+    const title = document.createElement("h3");
+    title.textContent = o.puesto || "Puesto disponible";
+    const meta = document.createElement("p");
+    meta.className = "offer-meta";
+    meta.textContent = [o.localidad, o.rubro].filter(Boolean).join(" · ");
+    const desc = document.createElement("p");
+    desc.className = "offer-desc";
+    desc.textContent = o.descripcion || "";
+    const badge = document.createElement("span");
+    badge.className = "pill";
+    badge.textContent = "Empleo";
+    card.append(title, meta, desc, badge);
+    list.append(card);
+  });
+}
+loadOffers();
+</script>
+</body>
+  </html>
+  
