@@ -210,7 +210,7 @@ supabaseClient.auth.onAuthStateChange((event, session) => {
     currentUser = user;
 
     
-if (!roleChooserShown) {
+if (!user.user_metadata?.tipo_usuario && !roleChooserShown) {
   setTimeout(() => openRoleChooser(), 0);
   }
   
