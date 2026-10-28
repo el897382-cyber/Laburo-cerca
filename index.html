@@ -90,7 +90,7 @@ footer{text-align:center;padding:24px 16px 32px;color:var(--muted);font-size:14p
       </div>
       <button class="btn btn-primary" type="submit">Buscar empleos</button>
     </form>
-  </section>
+  </section>ft
 
   <section class="two-cards section">
     <article class="card">
@@ -209,9 +209,11 @@ supabaseClient.auth.onAuthStateChange((event, session) => {
   if (event === "SIGNED_IN" && user) {
     currentUser = user;
 
-    if (!user.user_metadata?.tipo_usuario && !roleChooserShown) {
-      setTimeout(() => openRoleChooser(), 0);
-    }
+    
+if (!roleChooserShown) {
+  setTimeout(() => openRoleChooser(), 0);
+  }
+  
   }
 
   if (event === "SIGNED_OUT") {
