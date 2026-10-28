@@ -202,11 +202,28 @@ try {
   if (window.supabase && SUPABASE_URL.startsWith("https://") &&
       SUPABASE_KEY && !SUPABASE_KEY.includes("PEGÁ_ACÁ")) {
     supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  
+supabaseClient.auth.onAuthStateChange((event, session) => {
+  const user = session?.user;
+
+  if (event === "SIGNED_IN" && user) {
+    currentUser = user;
+
+    if (!user.user_metadata?.tipo_usuario && !roleChooserShown) {
+      setTimeout(() => openRoleChooser(), 0);
+    }
   }
+
+  if (event === "SIGNED_OUT") {
+    currentUser = null;
+    roleChooserShown = false;
+  }
+});
+  
+}
 } catch (err) {
   console.error("No se pudo iniciar Supabase:", err);
-}
-
+  }
 const $ = (id) => document.getElementById(id);
 let authMode = "magic";
 let allOffers = [];
