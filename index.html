@@ -211,6 +211,64 @@ const $ = (id) => document.getElementById(id);
 let authMode = "magic";
 let allOffers = [];
 
+let currentUser = null;
+let roleChooserShown = false;
+
+function openRoleChooser() {
+  roleChooserShown = true;
+  $("roleBackdrop").classList.remove("hidden");
+}
+
+async function chooseRole(role) {
+  if (!supabaseClient) return;
+
+  const buttons = [
+    $("choosePostulante"),
+    $("chooseEmpleador")
+  ];
+
+  buttons.forEach(button => button.disabled = true);
+  setStatus("roleStatus", "Guardando tu elección…");
+
+  try {
+    const { data, error } = await supabaseClient.auth.updateUser({
+      data: { tipo_usuario: role }
+    });
+
+    if (error) throw error;
+
+    currentUser = data.user;
+    $("roleBackdrop").classList.add("hidden");
+    roleChooserShown = false;
+
+    if (role === "empleador") {
+      openEmployer();
+    } else {
+      setStatus(
+        "authStatus",
+        "¡Listo! Tu cuenta está configurada para buscar empleo.",
+        "success"
+      );
+    }
+  } catch (err) {
+    setStatus(
+      "roleStatus",
+      "No pudimos guardar tu elección: " + err.message,
+      "error"
+    );
+  } finally {
+    buttons.forEach(button => button.disabled = false);
+  }
+}
+
+$("choosePostulante").addEventListener("click", () => {
+  chooseRole("postulante");
+});
+
+$("chooseEmpleador").addEventListener("click", () => {
+  chooseRole("empleador");
+});
+  
 function setStatus(id, message, kind="") {
   const el = $(id);
   el.textContent = message;
@@ -268,18 +326,17 @@ $("authForm").addEventListener("submit", async e => {
         email,
         options: { emailRedirectTo: window.location.origin + window.location.pathname }
       });
-    } else if (authMode === "signup") {
-      result = await supabaseClient.auth.signUp({
-  email,
-  password,
-  options: {
-    emailRedirectTo: window.location.origin + window.location.pathname
-  }
-});
-          data: { tipo_usuario: $("userRole").value }
-        }
-      });
-    } else {
+    
+} else if (authMode === "signup") {
+  result = await supabaseClient.auth.signUp({
+    email,
+    password,
+    options: {
+      emailRedirectTo: window.location.origin + window.location.pathname
+    }
+  });
+} else {
+  
       result = await supabaseClient.auth.signInWithPassword({ email, password });
     }
     if (result.error) throw result.error;
